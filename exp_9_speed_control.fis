@@ -1,0 +1,33 @@
+[System]
+Name='exp_9_speed_control'
+Type='mamdani'
+Version=2.0
+NumInputs=1
+NumOutputs=1
+NumRules=3
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='centroid'
+
+[Input1]
+Name='speed'
+Range=[0 100]
+NumMFs=3
+MF1='too_slow':'trimf',[0 0 50]
+MF2='just_right':'trimf',[10 50 90]
+MF3='too_fast':'trimf',[50 100 100]
+
+[Output1]
+Name='voltage'
+Range=[0 5]
+NumMFs=3
+MF1='less_voltage':'trimf',[0 0 2.5]
+MF2='no_change':'trimf',[0 2.5 5]
+MF3='more_voltage':'trimf',[2.5 5 5]
+
+[Rules]
+1, 3 (1) : 1
+2, 2 (1) : 1
+3, 1 (1) : 1
